@@ -1,4 +1,4 @@
-// Scratch Extension to demonstrate some simple Eclipse SmartHome and QIVICON functionality
+// Test Extension to demonstrate some simple HTTP and REST functionality
 // 2015 Sascha Wolter (http://wolter.biz | @saschawolter)
 
 (function (ext) {
@@ -65,5 +65,5 @@
         url: 'http://www.wolter.biz'
     };
 
-    ScratchExtensions.register('Eclipse SmartHome and QIVICON REST API', descriptor, ext);
+    ScratchExtensions.register('Simple REST API', descriptor, ext);
 })({});
