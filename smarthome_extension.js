@@ -67,7 +67,7 @@
             // Block type, block name, function name, opt. callback
             ['R', 'send %s to %s', 'send', 'ON', 'http://localhost:3000/api/v1/smarthome/virtual/bulb/'],
             ['R', 'receive %s from %s', 'receive', 'state', 'http://localhost:3000/api/v1/smarthome/virtual/bulb/'],
-            ['h', 'when state %s is changed', 'when_state_is_changed', "XXX]
+            ['h', 'when state %s is changed', 'when_state_is_changed', "XXX"]
         ],
         url: 'http://www.wolter.biz'
     };
