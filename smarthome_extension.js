@@ -46,7 +46,7 @@
             }
         });
     };
-
+    
     var interval_when_state_is_changed = 1000;
     var last_when_state_is_changed = 0;
     // hat blocks will be repeatd as fast as possible, thus "filtering" needs to be done
