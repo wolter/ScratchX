@@ -47,7 +47,13 @@
         });
     };
 
+    var interval_when_state_is_changed = 1000;
+    var last_when_state_is_changed = 0;
+    // hat blocks will be repeatd as fast as possible, thus "filtering" needs to be done
     ext.when_state_is_changed = function (varname) {
+        if ((last_when_state_is_changed+interval_when_state_is_changed)>=Date.now()) {
+            return false;
+        }
         console.log("when_state_is_changed");
         return true;
     }
