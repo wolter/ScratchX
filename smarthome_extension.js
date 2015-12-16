@@ -7,9 +7,11 @@
 (function (ext) {
 
     var endpoint = "http://127.0.0.1:8080/rest/";
-    ext.set_endpoint = function (url, callback) {
-        console.log("set endpoint to " + url);
-        endpoint = url;
+    ext.set_endpoint = function (url) {        
+        if (url) {
+            endpoint = url;
+        }
+        console.log("set endpoint to " + endpoint);
         return endpoint;
     }
 
