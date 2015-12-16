@@ -42,7 +42,7 @@
                 eventReceivedTimer = setTimeout(function () {
                     eventReceived = false;
                     eventReceivedTimer = null;
-                }, 100);
+                }, 50);
             }
             console.log("when_event");
             return true;
