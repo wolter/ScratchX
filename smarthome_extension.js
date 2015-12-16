@@ -50,7 +50,7 @@
                     url: 'https://github.com/wolter/ScratchX'
                 };
             } else {
-                var descriptor = {
+                descriptor = {
                     blocks: [
                         ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
                         ['R', 'get all items', 'getAllItems'],
