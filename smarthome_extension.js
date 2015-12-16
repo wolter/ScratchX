@@ -46,7 +46,7 @@
                 }, 100);
             }
             // smarthome/items/DemoSwitch/statechanged
-            return eventReceived.split("/")[2] == item;
+            return eventReceived.type.split("/")[2] == item;
         }
         return false;
     }
