@@ -93,6 +93,7 @@
         });
     };
     
+    // just a helper method to retrieve avaiable items as Array
     ext.getAllItems = function (callback) {
 
         var url = endpoint + "items";
