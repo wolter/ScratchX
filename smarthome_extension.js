@@ -20,8 +20,6 @@
 
     ext.set_endpoint = function (url) {
 
-        ScratchExtensions.unregister('SmartHome');
-
         if (url != endpoint) {
             endpoint = url;
             if (eventSource) {
@@ -34,7 +32,6 @@
         }
         console.log("set endpoint to " + endpoint);
 
-        // update item menu only works initial
         ext.getAllItems(function (list) {
             var descriptor;
             if (list) {
@@ -65,6 +62,7 @@
                     url: 'https://github.com/wolter/ScratchX'
                 };
             }
+            ScratchExtensions.unregister('SmartHome');
             ScratchExtensions.register('SmartHome', descriptor, ext);
         });
 
