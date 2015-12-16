@@ -43,7 +43,7 @@
                 eventReceivedTimer = setTimeout(function () {
                     eventReceived = null;
                     eventReceivedTimer = null;
-                }, 50);
+                }, 100);
             }
             // smarthome/items/DemoSwitch/statechanged
             return eventReceived.split("/")[2] == item;
