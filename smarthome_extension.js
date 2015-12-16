@@ -19,6 +19,9 @@
     }
 
     ext.set_endpoint = function (url) {
+
+        ScratchExtensions.unregister('SmartHome');
+
         if (url != endpoint) {
             endpoint = url;
             if (eventSource) {
