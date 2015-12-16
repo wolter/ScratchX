@@ -3,6 +3,7 @@ Scratch extensions for the use with REST, Eclipse SmartHome, openHAB and QIVICON
 
 - set endpoint to URL: allows to change URL, port, and path of the REST endpoint if it differs from standard Eclipse SmartHome
 - get all items: is just a helper block to retrieve all available items
+- send command COMMAND to item ITEM: sends the command COMMAND to the given item
 - set state of item ITEM to VALUE: sets the state of the ITEM to the given value
 - get state from item ITEM: gets the current value of the given item
 - when state of ITEM changed: is a hat block which executes its children once the ITEM's status has changed

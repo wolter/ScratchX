@@ -51,7 +51,29 @@
         return false;
     }
 
-    ext.send = function (item, value, callback) {
+    ext.sendCommand = function (command, item, callback) {
+
+        var url = endpoint + "items/" + item;
+
+        console.log("send " + command + " to " + url);
+
+        $.ajax({
+            method: "POST",
+            cache: false,
+            url: url,
+            data: command,
+            contentType: "text/plain",
+            success: function () {
+                callback();
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error);
+                callback();
+            }
+        });
+    };
+
+    ext.sendStatus = function (item, value, callback) {
 
         var url = endpoint + "items/" + item + "/state";
 
@@ -73,7 +95,7 @@
         });
     };
 
-    ext.receive = function (item, callback) {
+    ext.receiveStatus = function (item, callback) {
 
         var url = endpoint + "items/" + item + "/state";
 
@@ -132,8 +154,9 @@
         blocks: [
             ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
             ['R', 'get all items', 'getAllItems'],
-            ['w', 'set state of item %s to %s', 'send', 'DemoSwitch', 'ON'],
-            ['R', 'get state from item %s', 'receive', 'DemoSwitch'],            
+            ['w', 'send command %s to item %s', 'sendCommand', 'ON', 'DemoSwitch'],
+            ['w', 'set state of item %s to %s', 'sendStatus', 'DemoSwitch', 'ON'],
+            ['R', 'get state from item %s', 'receiveStatus', 'DemoSwitch'],            
             ['h', 'when state of %s changed', 'when_event', 'DemoSwitch']
         ],
         url: 'https://github.com/wolter/ScratchX'
