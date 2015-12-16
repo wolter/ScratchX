@@ -37,8 +37,6 @@
         console.log("set endpoint to " + endpoint);
         return endpoint;
     }
-    // Initialize endpoint and event handling
-    ext.set_endpoint("http://127.0.0.1:8080/rest/");
 
     // hat blocks will be repeated as fast as possible, thus "filtering" needs to be done
     ext.when_event = function (item) {
@@ -155,6 +153,9 @@
         // Report current extensions status
         return { status: 2, msg: 'Ready' };
     };
+
+    // Initialize endpoint and event handling
+    ext.set_endpoint("http://127.0.0.1:8080/rest/");
 
     var descriptor = {
         blocks: [
