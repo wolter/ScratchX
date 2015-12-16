@@ -6,14 +6,14 @@
 
 (function (ext) {
 
-    var endpoint = "http://127.0.0.1:8080/rest/";
+    var endpoint = "";
     ext.set_endpoint = function (url) {        
-        if (url) {
-            endpoint = url;
-        }
+        endpoint = url;
         console.log("set endpoint to " + endpoint);
         return endpoint;
     }
+    // Initialize endpoint and event handling
+    ext.set_endpoint(endpoint);
 
     ext.send = function (item, value, callback) {
 
@@ -65,7 +65,7 @@
             console.log("new event source");
             event_source = source;
             event_received = false;
-            var eventSource = new EventSource(event_source);
+            var eventSource = new EventSource(endpoint + event_source);
             eventSource.addEventListener('message', function (eventPayload) {
                 var event = JSON.parse(eventPayload.data);
                 console.log(event.topic);
