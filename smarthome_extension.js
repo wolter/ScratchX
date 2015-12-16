@@ -11,10 +11,11 @@
     var eventReceived = null;
     var eventReceivedTimer = null;
     var eventSourceListener = function (eventPayload) {
+        // responds with something like {"topic":"smarthome/items/DemoSwitch/statechanged","payload":"{\"type\":\"OnOffType\",\"value\":\"OFF\",\"oldType\":\"OnOffType\",\"oldValue\":\"ON\"}","type":"ItemStateChangedEvent"}
         eventReceived = JSON.parse(eventPayload.data);
-        console.log(event.topic);
-        console.log(event.type);
-        console.log(event.payload);
+        console.log(eventReceived.topic);
+        console.log(eventReceived.type);
+        console.log(eventReceived.payload);
     }
 
     ext.set_endpoint = function (url) {
@@ -24,6 +25,7 @@
                 eventSource.close();
                 eventSource.removeEventListener('message', eventSourceListener);                
             }
+            // usually http://127.0.0.1:8080/rest/events?topics=smarthome/items/*/statechanged            
             eventSource = new EventSource(endpoint + "events?topics=smarthome/items/*/statechanged");
             eventSource.addEventListener('message', eventSourceListener);
         }
@@ -43,8 +45,8 @@
                     eventReceivedTimer = null;
                 }, 50);
             }
-            console.log("when_event");
-            return true;
+            // smarthome/items/DemoSwitch/statechanged
+            return eventReceived.split("/")[2] == item;
         }
         return false;
     }
