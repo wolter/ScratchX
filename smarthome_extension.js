@@ -161,7 +161,7 @@
         var descriptor = {
             blocks: [
                 ['r', 'set endpoint to %s', 'setEndpoint', endpoint],
-                ['r', 'get item %m.items', 'getItem'],
+                ['r', 'get item %m.items', 'getItem', ""],
                 ['w', 'send command %s to item %s', 'sendCommand', 'ON', 'DemoSwitch'],
                 ['w', 'set state of item %s to %s', 'sendStatus', 'DemoSwitch', 'ON'],
                 ['R', 'get state from item %s', 'receiveStatus', 'DemoSwitch'],
