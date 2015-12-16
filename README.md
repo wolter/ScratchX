@@ -6,7 +6,7 @@ Please note, your Smart Home installation needs to support CORS; For instance yo
 - com.eclipsesource.jaxrs.connector:root=/rest
 - org.eclipse.smarthome.cors:enable=true
 
-Starting works easiest with http://scratchx.org/?url=http://wolter.github.io/ScratchX/smarthome_extension.js#scratch (works in Google Chrome). The new blocks are available in the More Blocks section and offer the followin features:
+Starting works easiest with http://scratchx.org/?url=http://wolter.github.io/ScratchX/smarthome_extension.js#scratch (works in Google Chrome). The new blocks are available in the More Blocks section and offer the following features:
 
 - set endpoint to URL: allows to change URL, port, and path of the REST endpoint if it differs from standard Eclipse SmartHome
 - get item ITEM: is just a helper block to retrieve and select items (unfortunately only initial available items of the given endpoint are visible)
