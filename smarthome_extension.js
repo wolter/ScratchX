@@ -28,6 +28,11 @@
             // usually http://127.0.0.1:8080/rest/events?topics=smarthome/items/*/statechanged            
             eventSource = new EventSource(endpoint + "events?topics=smarthome/items/*/statechanged");
             eventSource.addEventListener('message', eventSourceListener);
+
+            // update item menu
+            ext.getAllItems(function (list) {
+                descriptor.menus.items = list;
+            });
         }
         console.log("set endpoint to " + endpoint);
         return endpoint;
@@ -150,10 +155,6 @@
         // Report current extensions status
         return { status: 2, msg: 'Ready' };
     };
-
-    ext.getAllItems(function (list) {
-        descriptor.menus.items = list;
-    });
 
     var descriptor = {
         blocks: [
