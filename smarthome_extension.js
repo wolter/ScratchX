@@ -33,7 +33,7 @@
         return endpoint;
     }
     // Initialize endpoint and event handling
-    ext.set_endpoint("http://127.0.0.1:8081/rest/");
+    ext.set_endpoint("http://127.0.0.1:8080/rest/");
 
     // hat blocks will be repeated as fast as possible, thus "filtering" needs to be done
     ext.when_event = function (item) {
@@ -152,21 +152,23 @@
     };
 
     ext.getAllItems(function (list) {
-        var descriptor = {
-            blocks: [
-                ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
-                ['R', 'get all items', 'getAllItems'],
-                ['w', 'send command %s to item %m.items', 'sendCommand', 'ON', 'DemoSwitch'],
-                ['w', 'set state of item %m.items to %s', 'sendStatus', 'DemoSwitch', 'ON'],
-                ['R', 'get state from item %m.items', 'receiveStatus', 'DemoSwitch'],
-                ['h', 'when state of %m.items changed', 'when_event', 'DemoSwitch']
-            ],
-            menus: {
-                items: list
-            },
-            url: 'https://github.com/wolter/ScratchX'
-        };
-        ScratchExtensions.register('SmartHome', descriptor, ext);
+        descriptor.menus.items = list;
     });
+
+    var descriptor = {
+        blocks: [
+            ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
+            ['R', 'get all items', 'getAllItems'],
+            ['w', 'send command %s to item %m.items', 'sendCommand', 'ON', 'DemoSwitch'],
+            ['w', 'set state of item %m.items to %s', 'sendStatus', 'DemoSwitch', 'ON'],
+            ['R', 'get state from item %m.items', 'receiveStatus', 'DemoSwitch'],
+            ['h', 'when state of %m.items changed', 'when_event', 'DemoSwitch']
+        ],
+        menus: {
+            items: list
+        },
+        url: 'https://github.com/wolter/ScratchX'
+    };
+    ScratchExtensions.register('SmartHome', descriptor, ext);
 
 })({});
