@@ -107,9 +107,9 @@
                 var jsonList = JSON.parse(data);
                 var flatList = new Array();
                 for (var i = 0; i < jsonList.length; i++) {
-                    flatList.push(jsonList[i].name);
-                    console.log(jsonList[i].name);
+                    flatList.push(jsonList[i].name);                    
                 }
+                console.log(flatList);
                 callback(flatList);
             },
             error: function (xhr, textStatus, error) {
