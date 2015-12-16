@@ -1,2 +1,2 @@
 # ScratchX
-Scratch extensions for the use with REST, Eclipse SmartHome, openHAB and QIVICON.
+Scratch extensions for the use with REST, Eclipse SmartHome, openHAB and QIVICON. ScratchX is available at http://scratchx.org/. Starting including this extension works easiest with http://scratchx.org/?url=http://wolter.github.io/ScratchX/smarthome_extension.js#scratch. New blocks are available in the More Blocks section.
