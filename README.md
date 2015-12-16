@@ -1,10 +1,10 @@
 # ScratchX
 Scratch extensions for the use with REST, Eclipse SmartHome, openHAB and QIVICON. ScratchX is available at http://scratchx.org/.
 
-Please note, your Smart Home installation needs to support CORS; You find this option for instance Eclipse SmartHome in the smarthome.cfg-file (located at distribution\smarthome\conf\smarthome.cfg). There you finde the following to settings: 
+Please note, your Smart Home installation needs to support CORS; You find this option for instance Eclipse SmartHome in the smarthome.cfg-file (located at distribution\smarthome\conf\smarthome.cfg). There you finde the following two important settings for the REST endpoints path and CORS: 
 
-com.eclipsesource.jaxrs.connector:root=/rest
-org.eclipse.smarthome.cors:enable=true   
+- com.eclipsesource.jaxrs.connector:root=/rest
+- org.eclipse.smarthome.cors:enable=true
 
 Starting works easiest with http://scratchx.org/?url=http://wolter.github.io/ScratchX/smarthome_extension.js#scratch (works in Google Chrome). The new blocks are available in the More Blocks section and offer the followin features:
 
