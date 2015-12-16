@@ -102,13 +102,13 @@
             cache: false,
             url: url,
             dataType: "text",
-            success: function (data) {
-                console.log(data + " received from " + url);
+            success: function (data) {                
                 var jsonList = JSON.parse(data);
                 var flatList = new Array();
                 for (var i = 0; i < jsonList.length; i++) {
                     flatList.push(jsonList.name);
                 }
+                console.log(flatList + " received from " + url);
                 callback(flatList);
             },
             error: function (xhr, textStatus, error) {
