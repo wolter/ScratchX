@@ -62,8 +62,7 @@
                     url: 'https://github.com/wolter/ScratchX'
                 };
             }
-            ScratchExtensions.unregister('SmartHome');
-            ScratchExtensions.register('SmartHome', descriptor, ext);
+            ScratchExtensions.register('SmartHome ' + endpoint, descriptor, ext);
         });
 
         return endpoint;
