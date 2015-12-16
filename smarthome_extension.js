@@ -24,7 +24,7 @@
                 eventSource.close();
                 eventSource.removeEventListener('message', eventSourceListener);                
             }
-            eventSource = new EventSource(endpoint + "events?topics=smarthome/items/*/stateChanged");
+            eventSource = new EventSource(endpoint + "events?topics=smarthome/items/*/statechanged");
             eventSource.addEventListener('message', eventSourceListener);
         }
         console.log("set endpoint to " + endpoint);
@@ -35,11 +35,11 @@
 
     // hat blocks will be repeated as fast as possible, thus "filtering" needs to be done
     ext.when_event = function (item) {
-        if (eventReceived) {
+        if (eventReceived != null) {
             // According to https://github.com/LLK/scratchx/issues/40 a workaround is needed here
             if (!eventReceivedTimer) {
                 eventReceivedTimer = setTimeout(function () {
-                    eventReceived = false;
+                    eventReceived = null;
                     eventReceivedTimer = null;
                 }, 50);
             }
