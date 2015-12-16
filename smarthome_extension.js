@@ -24,7 +24,7 @@
                 eventSource.close();
                 eventSource.removeEventListener('message', eventSourceListener);                
             }
-            eventSource = new EventSource(endpoint + "events?topics=smarthome/items/*/state/");
+            eventSource = new EventSource(endpoint + "events?topics=smarthome/items/*/stateChanged");
             eventSource.addEventListener('message', eventSourceListener);
         }
         console.log("set endpoint to " + endpoint);
