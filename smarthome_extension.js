@@ -7,13 +7,42 @@
 (function (ext) {
 
     var endpoint = "";
-    ext.set_endpoint = function (url) {        
-        endpoint = url;
+    var eventSource = null;
+    var eventReceived = false;
+
+    var eventSourceListener = function (eventPayload) {
+        var event = JSON.parse(eventPayload.data);
+        console.log(event.topic);
+        console.log(event.type);
+        console.log(event.payload);
+        eventReceived = true;
+    }
+
+    ext.set_endpoint = function (url) {
+        if (url != endpoint) {
+            endpoint = url;
+            if (eventSource) {
+                eventSource.close();
+                eventSource.removeEventListener('message', eventSourceListener);                
+            }
+            eventSource = new EventSource(endpoint + "events?topics=smarthome/items/*/state");
+            eventSource.addEventListener('message', eventSourceListener);
+        }
         console.log("set endpoint to " + endpoint);
         return endpoint;
     }
     // Initialize endpoint and event handling
-    ext.set_endpoint(endpoint);
+    ext.set_endpoint("http://127.0.0.1:8080/rest/");
+
+    // hat blocks will be repeated as fast as possible, thus "filtering" needs to be done
+    ext.when_event = function () {
+        if (!eventReceived) {
+            return false;
+        }
+        eventReceived = false;
+        console.log("when_event");
+        return true;
+    }
 
     ext.send = function (item, value, callback) {
 
@@ -57,31 +86,6 @@
         });
     };
     
-    var event_received = false;
-    var event_source = null;
-    // hat blocks will be repeatd as fast as possible, thus "filtering" needs to be done
-    ext.when_event = function (source) {
-        if (event_source != source) {
-            console.log("new event source");
-            event_source = source;
-            event_received = false;
-            var eventSource = new EventSource(endpoint + event_source);
-            eventSource.addEventListener('message', function (eventPayload) {
-                var event = JSON.parse(eventPayload.data);
-                console.log(event.topic);
-                console.log(event.type);
-                console.log(event.payload);
-                event_received = true;
-            });
-        }
-        if (!event_received) {
-            return false;
-        }
-        event_received = false;
-        console.log("when_event");
-        return true;
-    }
-
     ext._shutdown = function () {
         // Cleanup extension if needed
         console.log('Shutting down...');
@@ -97,7 +101,7 @@
             ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
             ['w', 'set state of item %s to %s', 'send', 'DemoSwitch', 'ON'],
             ['R', 'get state from item %s', 'receive', 'DemoSwitch'],
-            ['h', 'when event %s', 'when_event', "events?topics=smarthome/items/DemoSwitch/state"]
+            ['h', 'when state of any item changed', 'when_event']
         ],
         url: 'https://github.com/wolter/ScratchX'
     };
