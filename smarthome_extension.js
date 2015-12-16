@@ -166,7 +166,7 @@
             ['h', 'when state of %m.items changed', 'when_event', 'DemoSwitch']
         ],
         menus: {
-            items: list
+            items: []
         },
         url: 'https://github.com/wolter/ScratchX'
     };
