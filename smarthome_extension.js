@@ -107,7 +107,7 @@
                 var jsonList = JSON.parse(data);
                 var flatList = new Array();
                 for (var i = 0; i < jsonList.length; i++) {
-                    flatList.push(jsonList.name);
+                    flatList.push(jsonList[i].name);
                 }
                 console.log(flatList + " received from " + url);
                 callback(flatList);
