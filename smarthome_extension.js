@@ -9,7 +9,7 @@
     var endpoint = "";
     var eventSource = null;
     var eventReceived = false;
-
+    var eventReceivedTimer = null;
     var eventSourceListener = function (eventPayload) {
         var event = JSON.parse(eventPayload.data);
         console.log(event.topic);
@@ -36,12 +36,18 @@
 
     // hat blocks will be repeated as fast as possible, thus "filtering" needs to be done
     ext.when_event = function () {
-        if (!eventReceived) {
-            return false;
+        if (eventReceived) {
+            // According to https://github.com/LLK/scratchx/issues/40 a workaround is needed here
+            if (!eventReceivedTimer) {
+                eventReceivedTimer = setTimeout(function () {
+                    eventReceived = false;
+                    eventReceivedTimer = null;
+                }, 100);
+            }
+            console.log("when_event");
+            return true;
         }
-        eventReceived = false;
-        console.log("when_event");
-        return true;
+        return false;
     }
 
     ext.send = function (item, value, callback) {
