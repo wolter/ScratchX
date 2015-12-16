@@ -92,8 +92,7 @@
 
     var descriptor = {
         blocks: [
-            // Block type, block name, function name, opt. callback
-            ['w', 'set endpoint to %s', 'set_endpoint', endpoint],
+            ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
             ['w', 'set state of item %s to %s', 'send', 'DemoSwitch', 'ON'],
             ['R', 'get state from item %s', 'receive', 'DemoSwitch'],
             ['h', 'when event %s', 'when_event', "events?topics=smarthome/items/DemoSwitch/state"]
