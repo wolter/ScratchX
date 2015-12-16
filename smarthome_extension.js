@@ -8,14 +8,13 @@
 
     var endpoint = "";
     var eventSource = null;
-    var eventReceived = false;
+    var eventReceived = null;
     var eventReceivedTimer = null;
     var eventSourceListener = function (eventPayload) {
-        var event = JSON.parse(eventPayload.data);
+        eventReceived = JSON.parse(eventPayload.data);
         console.log(event.topic);
         console.log(event.type);
         console.log(event.payload);
-        eventReceived = true;
     }
 
     ext.set_endpoint = function (url) {
@@ -25,7 +24,7 @@
                 eventSource.close();
                 eventSource.removeEventListener('message', eventSourceListener);                
             }
-            eventSource = new EventSource(endpoint + "events?topics=smarthome/items/*/state");
+            eventSource = new EventSource(endpoint + "events?topics=smarthome/items/*/state/");
             eventSource.addEventListener('message', eventSourceListener);
         }
         console.log("set endpoint to " + endpoint);
@@ -35,7 +34,7 @@
     ext.set_endpoint("http://127.0.0.1:8080/rest/");
 
     // hat blocks will be repeated as fast as possible, thus "filtering" needs to be done
-    ext.when_event = function () {
+    ext.when_event = function (item) {
         if (eventReceived) {
             // According to https://github.com/LLK/scratchx/issues/40 a workaround is needed here
             if (!eventReceivedTimer) {
@@ -107,7 +106,7 @@
             ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
             ['w', 'set state of item %s to %s', 'send', 'DemoSwitch', 'ON'],
             ['R', 'get state from item %s', 'receive', 'DemoSwitch'],
-            ['h', 'when state of any item changed', 'when_event']
+            ['h', 'when state of %s changed', 'when_event', 'DemoSwitch']
         ],
         url: 'https://github.com/wolter/ScratchX'
     };
