@@ -140,6 +140,7 @@
             }
         });
     };
+
     ext._shutdown = function () {
         // Cleanup extension if needed
         console.log('Shutting down...');
@@ -150,17 +151,22 @@
         return { status: 2, msg: 'Ready' };
     };
 
-    var descriptor = {
-        blocks: [
-            ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
-            ['R', 'get all items', 'getAllItems'],
-            ['w', 'send command %s to item %s', 'sendCommand', 'ON', 'DemoSwitch'],
-            ['w', 'set state of item %s to %s', 'sendStatus', 'DemoSwitch', 'ON'],
-            ['R', 'get state from item %s', 'receiveStatus', 'DemoSwitch'],            
-            ['h', 'when state of %s changed', 'when_event', 'DemoSwitch']
-        ],
-        url: 'https://github.com/wolter/ScratchX'
-    };
+    ext.getAllItems(function (list) {
+        var descriptor = {
+            blocks: [
+                ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
+                ['R', 'get all items', 'getAllItems'],
+                ['w', 'send command %s to item %s', 'sendCommand', 'ON', 'DemoSwitch'],
+                ['w', 'set state of item %m.items to %s', 'sendStatus', 'DemoSwitch', 'ON'],
+                ['R', 'get state from item %s', 'receiveStatus', 'DemoSwitch'],
+                ['h', 'when state of %s changed', 'when_event', 'DemoSwitch']
+            ],
+            menus: {
+                items: list
+            },
+            url: 'https://github.com/wolter/ScratchX'
+        };
+        ScratchExtensions.register('SmartHome', descriptor, ext);
+    });
 
-    ScratchExtensions.register('SmartHome', descriptor, ext);
 })({});
