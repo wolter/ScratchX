@@ -108,7 +108,7 @@
                 var flatList = new Array();
                 for (var i = 0; i < jsonList.length; i++) {
                     flatList.push(jsonList[i].name);
-                    console.log(jsonList[i]);
+                    console.log(jsonList[i].name);
                 }
                 callback(flatList);
             },
