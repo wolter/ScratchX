@@ -18,7 +18,32 @@
         console.log(eventReceived.payload);
     }
 
-    ext.set_endpoint = function (url) {
+    // just a helper method to retrieve avaiable items as Array
+    getAllItems = function (callback) {
+
+        var url = endpoint + "items";
+
+        $.ajax({
+            method: "GET",
+            cache: false,
+            url: url,
+            dataType: "text",
+            success: function (data) {
+                var jsonList = JSON.parse(data);
+                var flatList = new Array();
+                for (var i = 0; i < jsonList.length; i++) {
+                    flatList.push(jsonList[i].name);
+                }
+                console.log(flatList);
+                callback(flatList);
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error);
+                callback();
+            }
+        });
+    };
+    ext.setEndpoint = function (url) {
 
         if (url != endpoint) {
             endpoint = url;
@@ -31,45 +56,16 @@
             eventSource.addEventListener('message', eventSourceListener);
         }
         console.log("set endpoint to " + endpoint);
-
-        ext.getAllItems(function (list) {
-            var descriptor;
-            if (list) {
-                var descriptor = {
-                    blocks: [
-                        ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
-                        ['R', 'get all items', 'getAllItems'],
-                        ['w', 'send command %s to item %m.items', 'sendCommand', 'ON', 'DemoSwitch'],
-                        ['w', 'set state of item %m.items to %s', 'sendStatus', 'DemoSwitch', 'ON'],
-                        ['R', 'get state from item %m.items', 'receiveStatus', 'DemoSwitch'],
-                        ['h', 'when state of %m.items changed', 'when_event', 'DemoSwitch']
-                    ],
-                    menus: {
-                        items: list
-                    },
-                    url: 'https://github.com/wolter/ScratchX'
-                };
-            } else {
-                descriptor = {
-                    blocks: [
-                        ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
-                        ['R', 'get all items', 'getAllItems'],
-                        ['w', 'send command %s to item %s', 'sendCommand', 'ON', 'DemoSwitch'],
-                        ['w', 'set state of item %s to %s', 'sendStatus', 'DemoSwitch', 'ON'],
-                        ['R', 'get state from item %s', 'receiveStatus', 'DemoSwitch'],
-                        ['h', 'when state of %s changed', 'when_event', 'DemoSwitch']
-                    ],
-                    url: 'https://github.com/wolter/ScratchX'
-                };
-            }
-            ScratchExtensions.register('SmartHome ' + endpoint, descriptor, ext);
-        });
-
         return endpoint;
     }
 
+    // helper block for predifined items if standard endpoint is used
+    ext.getItem = function (item) {
+        return item;
+    }
+
     // hat blocks will be repeated as fast as possible, thus "filtering" needs to be done
-    ext.when_event = function (item) {
+    ext.whenEvent = function (item) {
         if (eventReceived != null) {
             // According to https://github.com/LLK/scratchx/issues/40 a workaround is needed here
             if (!eventReceivedTimer) {
@@ -147,32 +143,6 @@
             }
         });
     };
-    
-    // just a helper method to retrieve avaiable items as Array
-    ext.getAllItems = function (callback) {
-
-        var url = endpoint + "items";
-
-        $.ajax({
-            method: "GET",
-            cache: false,
-            url: url,
-            dataType: "text",
-            success: function (data) {                
-                var jsonList = JSON.parse(data);
-                var flatList = new Array();
-                for (var i = 0; i < jsonList.length; i++) {
-                    flatList.push(jsonList[i].name);                    
-                }
-                console.log(flatList);
-                callback(flatList);
-            },
-            error: function (xhr, textStatus, error) {
-                console.log(error);
-                callback();
-            }
-        });
-    };
 
     ext._shutdown = function () {
         // Cleanup extension if needed
@@ -186,5 +156,23 @@
 
     // Initialize endpoint and event handling
     ext.set_endpoint("http://127.0.0.1:8080/rest/");
+
+    getAllItems(function (list) {
+        var descriptor = {
+            blocks: [
+                ['r', 'set endpoint to %s', 'setEndpoint', endpoint],
+                ['r', 'get item %m.items', 'getItem'],
+                ['w', 'send command %s to item %s', 'sendCommand', 'ON', 'DemoSwitch'],
+                ['w', 'set state of item %s to %s', 'sendStatus', 'DemoSwitch', 'ON'],
+                ['R', 'get state from item %s', 'receiveStatus', 'DemoSwitch'],
+                ['h', 'when state of %s changed', 'whenEvent', 'DemoSwitch']
+            ],
+            menus: {
+                items: list
+            },
+            url: 'https://github.com/wolter/ScratchX'
+        };
+        ScratchExtensions.register('SmartHome ', descriptor, ext);
+    });
 
 })({});
