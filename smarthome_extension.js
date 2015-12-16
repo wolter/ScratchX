@@ -92,7 +92,7 @@
 
     var descriptor = {
         blocks: [
-            ['r', 'evaluate JavaScript %s', 'set_endpoint']
+            ['r', 'evaluate JavaScript %s', 'set_endpoint'],
             ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
             ['w', 'set state of item %s to %s', 'send', 'DemoSwitch', 'ON'],
             ['R', 'get state from item %s', 'receive', 'DemoSwitch'],
