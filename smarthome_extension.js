@@ -93,6 +93,30 @@
         });
     };
     
+    ext.getAllItems = function (callback) {
+
+        var url = endpoint + "items";
+
+        $.ajax({
+            method: "GET",
+            cache: false,
+            url: url,
+            dataType: "text",
+            success: function (data) {
+                console.log(data + " received from " + url);
+                var jsonList = JSON.parse(data);
+                var flatList = new Array();
+                for (var i=0; i<jsonList.length, i++) {
+                    flatList.push(jsonList.name);
+                }
+                callback(flatList);
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error);
+                callback();
+            }
+        });
+    };
     ext._shutdown = function () {
         // Cleanup extension if needed
         console.log('Shutting down...');
@@ -106,8 +130,9 @@
     var descriptor = {
         blocks: [
             ['r', 'set endpoint to %s', 'set_endpoint', endpoint],
+            ['R', 'get all items', 'getAllItems'],
             ['w', 'set state of item %s to %s', 'send', 'DemoSwitch', 'ON'],
-            ['R', 'get state from item %s', 'receive', 'DemoSwitch'],
+            ['R', 'get state from item %s', 'receive', 'DemoSwitch'],            
             ['h', 'when state of %s changed', 'when_event', 'DemoSwitch']
         ],
         url: 'https://github.com/wolter/ScratchX'
