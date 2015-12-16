@@ -155,7 +155,7 @@
     };
 
     // Initialize endpoint and event handling
-    ext.set_endpoint("http://127.0.0.1:8080/rest/");
+    ext.setEndpoint("http://127.0.0.1:8080/rest/");
 
     getAllItems(function (list) {
         var descriptor = {
