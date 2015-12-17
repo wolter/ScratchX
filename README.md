@@ -18,7 +18,7 @@ There you need to enabled CORS as shown above (for openHAB 2 you just need to ad
 
 This extension is tested with Google Chrome 47.0.2526.80 and Adobe Flash Player 20.0.0.228 (Shockwave Flash 20.0) on Windows 10 64 Bit.
 
-## Blocks
+## <a name="Blocks"></a>Blocks
 
 - `set endpoint to URL`: allows to change the URL of the REST endpoint including port, and path in case it differs from the standard Eclipse SmartHome;
 - `get item ITEM`: is just a helper block to retrieve and select a single predefined ITEM;
@@ -31,3 +31,7 @@ This extension is tested with Google Chrome 47.0.2526.80 and Adobe Flash Player 
 The `get item ITEM` block's purpose is to make ITEM selection easier. Unfortunately selection menus for blocks can only created and updated before registration of an extension. Thus, only initial available items of the given endpoint are visible. In other circumstance you have to firstly change the endpoint with `set endpoint to URL` and secondly you might need to figure out the items manully. The latter can be done with accessing the REST API directly using a HTTP GET similar to  http://127.0.0.1:8080/rest/items.
 
 The `when state of ITEM changed` is a little tricky due to the ScratchX extension handling. In case events will happen to fast or the execution of single blocks takes to long, events might be lost and/or blocks not executed. The reason is explained at https://github.com/LLK/scratchx/issues/40.
+
+## Branching and Extending
+
+If you like to create your own branch of this extension, you find a documentation  of the ScratchX extensibility at https://github.com/LLK/scratchx/wiki. In any case you need to host your extension in a way, ScratchX can access it. For instance as a GitHub Page ([gh-pages branch](https://github.com/wolter/ScratchX/tree/gh-pages "GitHub Pages branch")) with this [crossdomain.xml-file](https://github.com/wolter/ScratchX/blob/gh-pages/crossdomain.xml "Gain crossdomain access").
