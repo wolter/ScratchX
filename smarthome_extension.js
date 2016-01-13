@@ -5,7 +5,8 @@
 // 2015 Sascha Wolter (http://wolter.biz | @saschawolter)
 
 (function (ext) {
-
+    
+    var defaultEndpoint = "http://127.0.0.1:8080/rest/";
     var endpoint = "";
     var eventSource = null;
     var eventReceived = null;
@@ -18,7 +19,7 @@
         console.log(eventReceived.payload);
     }
 
-    // just a helper method to retrieve avaiable items as Array
+    // just a helper method to retrieve available items as Array
     getAllItems = function (callback) {
 
         var url = endpoint + "items";
@@ -59,7 +60,7 @@
         return endpoint;
     }
 
-    // helper block for predifined items if standard endpoint is used
+    // helper block for predefined items if standard endpoint is used
     ext.getItem = function (item) {
         return item;
     }
@@ -155,7 +156,7 @@
     };
 
     // Initialize endpoint and event handling
-    ext.setEndpoint("http://127.0.0.1:8080/rest/");
+    ext.setEndpoint(defaultEndpoint);
 
     getAllItems(function (list) {
         var descriptor = {
